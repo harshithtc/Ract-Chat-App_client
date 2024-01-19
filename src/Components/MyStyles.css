@@ -1,0 +1,107 @@
+.Main{
+    width:90vw;
+    height:90vh;
+    background-color: #f4f5f8;
+    border-radius: 20px;
+    display: flex;
+    
+    
+}
+.sidebar-container{
+    display: flex;
+    flex-direction: column;
+    flex: 0.3;
+    /*or flex-grow :0.3*/
+}
+.chatArea-container{
+flex: 0.7;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.sd-header{
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px 5px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+.sd-Search{
+    display: flex;
+    background-color: white;
+    padding: 3px 5px;
+    margin: 10px;
+    border-radius: 20px;
+    align-items: center;
+    margin-top: 0;
+}
+.search-box{
+    border: none;
+    outline-width: 0;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    width: 100%;
+}
+.sd-conversation{
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px 5px;
+    margin: 10px;
+    margin-top: 0;
+    flex:1;
+    overflow-y: scroll;
+
+}
+.sd-conversation::-webkit-scrollbar{
+    display: none;
+}
+.conversation-container{
+    display:grid;
+    grid-template-columns: 32px auto auto;
+    grid-template-rows: auto auto;
+    column-gap: 10px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 20px;
+}
+.con-icon{
+    grid-area: 1/1/3/2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#d9d9d9d9;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: white;
+    height: 32px;
+    width: 32px;
+    padding:2px;
+    border-radius: 50%;
+    justify-self: center;
+    align-self: center;
+    
+}
+.con-title{
+    grid-area: 1/2/2/4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: rgba(0,0, 0,0.54);
+
+}
+.con-lastMessage{
+    justify-self: flex-end;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.75;
+    color: rgba(0,0, 0,0.54);
+
+}
+.con-timeStamp{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.75;
+    color: rgba(0,0, 0,0.54);
+    justify-self: flex-end;
+}
