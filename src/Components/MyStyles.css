@@ -15,9 +15,8 @@
 }
 .chatArea-container{
 flex: 0.7;
-display: flex;
-align-items: center;
-justify-content: center;
+display: flex;  
+flex-direction: column;
 }
 .sd-header{
     background-color: white;
@@ -104,4 +103,86 @@ justify-content: center;
     font-size: 0.75;
     color: rgba(0,0, 0,0.54);
     justify-self: flex-end;
+}
+.chatArea-header{
+    background-color:white;
+    margin :10px;
+    border-radius: 20px;
+    padding:5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+
+    
+}
+.chatArea-messages{
+    flex: 1;
+    background-color:white;
+    margin:10px;
+    padding: 10px 5px;
+    border-radius: 20px;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scrollbar-gutter: 2px;
+}
+.chatArea-input{
+    background-color:white;
+    margin: 10px;
+    padding: 10px 5px;
+    border-radius: 20px;
+    margin-top: 0;
+    display: flex;
+}
+.chatArea-input input{
+    border: none;
+    outline-width: 0;
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.54);
+    margin-left: 10px;
+    flex: 1;
+
+}
+.header-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1;
+    padding: 2px;
+    
+}
+.self-message-container{
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px;
+      
+}
+.messageBox{
+    background-color: rgb(76, 241, 186);
+    padding: 10px;
+    border-radius: 20px;
+}
+.other-text-container{
+    background-color: #d9d9d9d9; 
+    display: flex;
+    padding: 10px;
+    border-radius: 20px;
+    flex-direction: column;
+    width: fit-content;
+}
+.other-timeStamp{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.54);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.self-time-stamp{
+    display: flex;
+    justify-content: flex-end;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
