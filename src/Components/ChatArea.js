@@ -4,21 +4,23 @@ import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
 import MessageOthers from './MessageOthers';
 import MessageSelf from './MessageSelf';
+import { useSelector } from 'react-redux';
 
 function ChatArea({props={name:'THAIR',timeStamp:'Online'}}) {
+  const lightTheme=useSelector((state)=>state.themeKey)
   return (
     <div className='chatArea-container'>
-      <div className='chatArea-header'>
-        <div className='con-icon'>{props.name[0]}</div>
+      <div className={'chatArea-header'+((lightTheme)?"" : ' dark')}>
+        <div className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>{props.name[0]}</div>
         <div className='header-text'>
-        <p className='con-title'>{props.name}</p>
-        <p className='con-timeStamp'>{props.timeStamp}</p>
+        <p className={'con-title'+((lightTheme)?"" : ' dark')}>{props.name}</p>
+        <p className={'con-timeStamp'+((lightTheme)?"" : ' dark')}>{props.timeStamp}</p>
         </div>
         <IconButton >
-        <DeleteOutlineRoundedIcon/>
+        <DeleteOutlineRoundedIcon className={''+((lightTheme)?"" : ' dark')}/>
         </IconButton>
       </div>
-      <div className='chatArea-messages'>
+      <div className={'chatArea-messages'+((lightTheme)?"" : ' dark')}>
         <MessageOthers/>
         <MessageSelf/>
         <MessageOthers/>
@@ -26,10 +28,10 @@ function ChatArea({props={name:'THAIR',timeStamp:'Online'}}) {
         <MessageOthers/>
         <MessageSelf/>
       </div>
-      <div className='chatArea-input'>
-      <input type="text" placeholder='Type a message' />
+      <div className={'chatArea-input'+((lightTheme)?"" : ' dark')}>
+      <input type="text" placeholder='Type a message' className={''+((lightTheme)?"" : ' dark')} />
       <IconButton>
-      <SendIcon/>
+      <SendIcon className={''+((lightTheme)?"" : ' dark')}/>
       </IconButton>
       </div>
     </div>

@@ -5,7 +5,7 @@ function MessageSelf() {
   return (
     <div className='self-message-container'>
       <div className='messageBox'>
-       <p className='con-lastMessage'>{props1.message}</p> 
+       <p className='con-lastMessage' style={{color:'whitesmoke'}}>{props1.message}</p> 
        <p className='self-time-stamp'> 12:00am</p>
       </div>
       
