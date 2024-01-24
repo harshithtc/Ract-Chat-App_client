@@ -4,13 +4,20 @@ import { IconButton } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import logo from '../images/live-chat.png'
 import { useSelector } from 'react-redux';
+import { AnimatePresence, motion } from "framer-motion"
 function Users() {
     const lightTheme=useSelector((state)=>state.themeKey)
   return (
-    <div className='list-container'>
+    <AnimatePresence>
+    <motion.div 
+    initial={{opacity:0,scale:0}}
+    animate={{opacity:1,scale:1}}
+    exit={{opacity:0,scale:0}}
+    transition={{ease:"anticipate",duration:"0.3"}}
+    className='list-container'>
     <div className={'online-users-container'+((lightTheme)?"" : ' dark')}>
         <img src={logo} alt="" className='online-users-logo'/>
-        <p >Online Users</p>
+        <p >Online Users </p>
  
     </div>
 
@@ -21,33 +28,34 @@ function Users() {
      <input placeholder='Search' className={'search-box'+((lightTheme)?"" : ' dark')}/>
     </div>
     <div className={'online-list-container'+((lightTheme)?"" : ' dark')}>
-    <div className={'online-list'+((lightTheme)?"" : ' dark')}>
+    <motion.div whileHover={{scale:1.01}} whileTap={{scale:0.99}} className={'online-list'+((lightTheme)?"" : ' dark')}>
         <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
         <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
+    </motion.div>
+    <motion.div whileHover={{scale:1.01}} whileTap={{scale:0.99}} className={'online-list'+((lightTheme)?"" : ' dark')}>
+        <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
+        <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
+    </motion.div>
+    <motion.div whileHover={{scale:1.01}} whileTap={{scale:0.99}} className={'online-list'+((lightTheme)?"" : ' dark')}>
+        <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
+        <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
+    </motion.div>
+    <motion.div whileHover={{scale:1.01}} whileTap={{scale:0.99}} className={'online-list'+((lightTheme)?"" : ' dark')}>
+        <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
+        <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
+    </motion.div>
+    <motion.div whileHover={{scale:1.01}} whileTap={{scale:0.99}} className={'online-list'+((lightTheme)?"" : ' dark')}>
+        <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
+        <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
+    </motion.div>
+    <motion.div whileHover={{scale:1.01}} whileTap={{scale:0.99}} className={'online-list'+((lightTheme)?"" : ' dark')}>
+        <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
+        <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
+    </motion.div>
     </div>
-    <div className={'online-list'+((lightTheme)?"" : ' dark')}>
-    <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
-    <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
-    </div>
-    <div className={'online-list'+((lightTheme)?"" : ' dark')}>
-    <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
-    <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
-    </div>
-    <div className={'online-list'+((lightTheme)?"" : ' dark')}>
-    <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
-    <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
-    </div>
-    <div className={'online-list'+((lightTheme)?"" : ' dark')}>
-    <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
-    <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
-    </div>
-    <div className={'online-list'+((lightTheme)?"" : ' dark')}>
-    <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>T</p>
-    <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>Test User</p>
-</div>
-    </div>
-    </div>
-  
+    </motion.div>
+    </AnimatePresence>
+
   )
 }
 

@@ -7,7 +7,7 @@ function Welcome() {
   return (
     <div className={'welcome-container'+((lightTheme)?"" : ' dark')}>
      <img src={logo} alt="" className='welcome-logo' />
-     <p>View and text directly to peaple presnt in the chat rooms</p>
+     <p style={{margin:'10px'}}>View and text directly to peaple presnt in the chat rooms</p>
     </div>
   )
 }
