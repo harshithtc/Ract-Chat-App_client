@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import './MyStyles.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -12,8 +12,22 @@ import ConversationsItem from './ConversationsItem';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../Features/themeSlice';
+import ChatIcon from '@mui/icons-material/Chat';
 function SideBar() {
    const lightThemse=useSelector((state)=>state.themeKey)
+   const [mobileOrientation,setMobileOrientaion]=useState(false)
+   useEffect(()=>{
+      const handleView=()=>{
+         setMobileOrientaion(window.innerWidth<641)
+      }
+      handleView()
+      window.addEventListener('resize',handleView)
+      return ()=>{
+         window.removeEventListener('resize',handleView)
+      }
+   },[])
+   
+   
   const dispatch= useDispatch()
    const [conversations,setConversations]=useState(
       [
@@ -54,6 +68,9 @@ function SideBar() {
      </IconButton>
      </div>
       <div>
+      {
+         mobileOrientation && <IconButton onClick={()=>navigate('messages')}><ChatIcon className={"icon"+((lightThemse)?"":" dark")} /></IconButton>
+      }
      <IconButton onClick={()=>navigate('users')}>
         <PersonAddIcon className={"icon"+((lightThemse)?"":" dark")}/>
      </IconButton>

@@ -10,8 +10,8 @@ function Login() {
     </div>
     <div className='login-box'>
         <p className='login-text'>Login to your Account</p>
-        <TextField id="standard-basic" style={{width:'40%'}} label="Enter user name" variant="outlined"  />
-        <TextField id="standard-basic" style={{width:'40%'}} type='password' label="Password" variant="outlined"  />
+        <TextField id="standard-basic" className='input-box-login' style={{width:'60%'}} label="Enter user name" variant="outlined"  />
+        <TextField id="standard-basic" className='input-box-login' style={{width:'60%'}} type='password' label="Password" variant="outlined"  />
         <Button variant="contained" style={{backgroundColor:'#63d7b0'}} >Login</Button>
     </div>
     </div>

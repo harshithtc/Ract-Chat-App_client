@@ -228,7 +228,7 @@ flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .welcome-logo{
-    height: 20vw;
+    height: 300px;
     object-fit: contain;
 }
 .welcome-container{
@@ -370,7 +370,7 @@ flex-direction: column;
     display: none;
 }
 @media screen and (max-width :40em) {
-    .sd-Search{
+    .sidebar-container .sd-Search{
         display:none
     }
     .sd-header{
@@ -389,8 +389,7 @@ flex-direction: column;
        flex:0
     }
     .chatArea-container{
-        flex:1;
-        
+        flex:1;   
         
     }
     .chatArea-header,.chatArea-messages,.chatArea-input{
@@ -402,13 +401,56 @@ flex-direction: column;
         width:100vw;
         height:100vh;
         border-radius: 0;
-        
+ 
         
     }
     .welcome-container{
         flex: 1;
-        margin-left: 0;
+        margin:0;
+        border-radius: 0;
         justify-content: center;
         align-items: center;
     }
+    .login-container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        border-radius: 0;
+    }
+    .image-container{
+        display: none;
+    }
+    .login-box{
+        flex:1;
+        height: 60%;
+        
+    }
+    .list-container{
+        flex: 1;
+        margin: 0;
+    }
+    .online-users-container{
+        margin:0;
+        border-radius: 0;
+    }
+    .sd-Search{
+        margin:0;
+        border-radius: 0;
+        margin-bottom: 0;
+    }
+    .online-list-container{
+        margin: 0;
+        border-radius: 0;
+        margin-top: 0;
+    }
+    .createGroup-main-container{
+        flex:1;
+        margin: 0;
+        border-radius: 0;
+    }
+    .createGroup-container{
+        margin:0
+    }
+    
 }
