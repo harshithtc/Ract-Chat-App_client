@@ -12,13 +12,16 @@ import ConversationsItem from './ConversationsItem';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../Features/themeSlice';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ChatIcon from '@mui/icons-material/Chat';
+import Messages from './Messages';
 function SideBar() {
    const lightThemse=useSelector((state)=>state.themeKey)
    const [mobileOrientation,setMobileOrientaion]=useState(false)
+   const [login,setLogin]=useState(true)
    useEffect(()=>{
       const handleView=()=>{
-         setMobileOrientaion(window.innerWidth<641)
+         setMobileOrientaion(window.innerWidth<687)
       }
       handleView()
       window.addEventListener('resize',handleView)
@@ -27,7 +30,10 @@ function SideBar() {
       }
    },[])
    
-   
+   const handleLogout=()=>{
+      localStorage.removeItem("userDetails")
+      setLogin(false)
+   }
   const dispatch= useDispatch()
    const [conversations,setConversations]=useState(
       [
@@ -67,7 +73,7 @@ function SideBar() {
         <AccountCircleIcon className={"icon"+((lightThemse)?"":" dark")}/>
      </IconButton>
      </div>
-      <div>
+      <div className='inner-icon'>
       {
          mobileOrientation && <IconButton onClick={()=>navigate('messages')}><ChatIcon className={"icon"+((lightThemse)?"":" dark")} /></IconButton>
       }
@@ -85,6 +91,9 @@ function SideBar() {
       {lightThemse && <NightlightIcon className="icon"/> }
       {!lightThemse && <LightModeIcon className={"icon"+((lightThemse)?"":" dark")}/>}
      </IconButton>
+     <IconButton onClick={handleLogout}>
+     <LogoutRoundedIcon className={"icon"+((lightThemse)?"":" dark")}/>
+     </IconButton>
 
      </div>
      </div>
@@ -94,12 +103,8 @@ function SideBar() {
       </IconButton>
       <input placeholder='Search' className={"search-box "+((lightThemse)?" ":" dark")}/>
      </div>
-      <div className={"sd-conversation "+((lightThemse)?" ":" dark")}>
-      {
-         conversations.map((conversation)=>{
-            return(<ConversationsItem props={conversation} key={conversation.name}  />)
-         })
-      }  
+     <div className={"sd-conversation "+((lightThemse)?" ":" dark")}>
+         <Messages/>
       </div>
     </div>
   )

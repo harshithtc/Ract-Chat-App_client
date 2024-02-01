@@ -6,7 +6,7 @@ import './MyStyles.css'
       const lightTheme=useSelector((state)=>state.themeKey)
       const navigate=useNavigate()
   return (
-    <div className='conversation-container' onClick={()=>{navigate("chat")}}>
+    <div className='conversation-container' onClick={()=>{navigate("/chat")}}>
       <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>{props.name[0]}</p>
       <p className={'con-title'+((lightTheme)?"" : ' dark')}>{props.name}</p>
       <p className={'con-lastMessage'+((lightTheme)?"" : ' dark')}>{props.lastMessage}</p>

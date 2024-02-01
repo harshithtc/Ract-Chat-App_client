@@ -5,11 +5,17 @@ import { IconButton } from '@mui/material';
 import MessageOthers from './MessageOthers';
 import MessageSelf from './MessageSelf';
 import { useSelector } from 'react-redux';
-
+import { AnimatePresence, motion } from "framer-motion"
 function ChatArea({props={name:'THAIR',timeStamp:'Online'}}) {
   const lightTheme=useSelector((state)=>state.themeKey)
   return (
-    <div className='chatArea-container'>
+    <AnimatePresence>
+    <motion.div 
+    initial={{opacity:0,scale:0}}
+    animate={{opacity:1,scale:1}}
+    exit={{opacity:0,scale:0}}
+    transition={{ease:"anticipate",duration:"0.3"}}
+    className='chatArea-container'>
       <div className={'chatArea-header'+((lightTheme)?"" : ' dark')}>
         <div className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>{props.name[0]}</div>
         <div className='header-text'>
@@ -34,7 +40,8 @@ function ChatArea({props={name:'THAIR',timeStamp:'Online'}}) {
       <SendIcon className={''+((lightTheme)?"" : ' dark')}/>
       </IconButton>
       </div>
-    </div>
+    </motion.div>
+    </AnimatePresence>
   )
 }
 

@@ -43,7 +43,7 @@ flex-direction: column;
 .sd-header{
     background-color: white;
     border-radius: 20px;
-    padding: 10px 5px;
+    padding: 5px 5px;
     margin: 10px;
     display: flex;
     justify-content: space-between;
@@ -83,6 +83,7 @@ flex-direction: column;
 }
 .conversation-container{
     display:grid;
+    grid: 100%;
     grid-template-columns: 32px auto auto;
     grid-template-rows: auto auto;
     column-gap: 10px;
@@ -141,9 +142,18 @@ flex-direction: column;
     color: rgba(0,0, 0,0.54);
     justify-self: flex-end;
 }
+.chatArea-container{
+    display:flex;
+    flex:1;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px;
+    margin-top: 0;
+    
+}
 .chatArea-header{
     background-color:white;
-    margin :10px;
+    margin-bottom: 10px;
     border-radius: 20px;
     padding:5px 10px;
     display: flex;
@@ -155,7 +165,7 @@ flex-direction: column;
 .chatArea-messages{
     flex: 1;
     background-color:white;
-    margin:10px;
+    margin-bottom:10px;
     padding: 10px 5px;
     border-radius: 20px;
     margin-top: 0;
@@ -170,7 +180,7 @@ flex-direction: column;
 }
 .chatArea-input{
     background-color:white;
-    margin: 10px;
+   
     padding: 10px 5px;
     border-radius: 20px;
     margin-top: 0;
@@ -272,7 +282,7 @@ flex-direction: column;
     outline-width: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.2rem;
-    flex: 1;
+    flex: 0;
 }
 .login-container{
     width:90vw;
@@ -308,20 +318,36 @@ flex-direction: column;
     color: #63d7b0;
     font-weight:bold ;
     font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.input-box-login:is(:active,:hover){
+    border: #63d7b0 !important;
+    color: #63d7b0 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.link-text{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #63d7b0;
+    font-weight:bold ;
+}
+.link:active{
+    color:rgb(59, 9, 105)
 }
 .list-container{
     display: flex;
     flex-direction: column;
     flex: 0.7;
+    margin: 10px;
+    
 
 }
 .online-users-container{
     display:flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     background-color: white;
-    margin: 10px;
-    padding: 5px;
+    padding:5px;
+    margin-bottom: 10px;
     border-radius: 20px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -346,6 +372,9 @@ flex-direction: column;
     align-items: center;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
+.list-container .sd-Search{
+    margin:0
+}
 
 .online-list-title{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -359,8 +388,6 @@ flex-direction: column;
 .online-list-container{
     background-color: white;
     border-radius: 20px;
-    padding: 9px 5px;
-    margin: 10px;
     margin-top: 0;
     flex:1;
     overflow-y: scroll;
@@ -369,7 +396,12 @@ flex-direction: column;
 .online-list-container::-webkit-scrollbar{
     display: none;
 }
-@media screen and (max-width :40em) {
+.inner-icon{
+    display:flex;
+    flex-wrap:nowrap
+}
+
+@media screen and (max-width :43em) {
     .sidebar-container .sd-Search{
         display:none
     }
@@ -380,6 +412,9 @@ flex-direction: column;
         margin-left: 1px;
         margin: 0;
         border-radius: 0;
+    }
+    .inner-icon{
+        flex-direction: column;
     }
     .sd-conversation{
         display: none;
@@ -401,7 +436,6 @@ flex-direction: column;
         width:100vw;
         height:100vh;
         border-radius: 0;
- 
         
     }
     .welcome-container{
@@ -417,13 +451,30 @@ flex-direction: column;
         display: flex;
         align-items: center;
         border-radius: 0;
+        flex-direction: column;
+        padding-bottom: 10px;
+        
+        
+        
+        
+
+        
     }
     .image-container{
-        display: none;
+        object-fit: contain;
+        padding: 10px; 
+    }
+    .image-container img{
+        width:250px;
+        filter:drop-shadow(0 0 5px black)
+        
+        
     }
     .login-box{
         flex:1;
-        height: 60%;
+        width: 95%;
+        height: fit-content;
+        
         
     }
     .list-container{
@@ -452,5 +503,29 @@ flex-direction: column;
     .createGroup-container{
         margin:0
     }
+    .input-box-login{
+        width:80% !important;
+    }
+    .list-container .sd-Search{
+        margin-bottom:2px;
+        margin-top: 2px; 
+    }
+    .chatArea-container{
+        margin: 0;
+        padding: 0;
+    }
     
+    .messages-container{
+        background-color: white;
+        height: 100%;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        flex:1;
+    }
+    .conversation-container{
+       
+        
+    
+    }
 }
