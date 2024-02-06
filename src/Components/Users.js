@@ -4,20 +4,23 @@ import { IconButton } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import logo from '../images/live-chat.png'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { AnimatePresence, motion } from "framer-motion"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { refresh } from '../Features/RefreshSlice';
 function Users() {
     const [users,setUsers]=useState([])
     const lightTheme=useSelector((state)=>state.themeKey)
+    const refreshField=useSelector((state)=>state.refreshKey)
+    const dispatch=useDispatch()
     const user=JSON.parse(localStorage.getItem('userData'))
     const navigate=useNavigate()
-    if(!user){
-        navigate('/')
-    }
-    console.log("User data ",user.token)
+    //console.log("User data ",user.token)
     useEffect(()=>{
+        if(!user){
+            navigate('/login')
+        }
         const config={
             headers: {
                 Authorization:`Bearer ${user.token}`
@@ -30,7 +33,7 @@ function Users() {
         }).catch((err)=>{
                 console.log(err)
         })
-    },[])
+    },[refreshField])
   return (
     <AnimatePresence>
     <motion.div 
@@ -42,8 +45,10 @@ function Users() {
     <div className={'online-users-container'+((lightTheme)?"" : ' dark')}>
         <img src={logo} alt="" className='online-users-logo'/>
         <p >Online Users </p>
-        <IconButton>
-        <RefreshIcon className={'icon '+(lightTheme?"":"dark")}/>
+        <IconButton onClick={()=>{
+            dispatch(refresh())
+        }}>
+        <RefreshIcon className={'icon '+(lightTheme?"":"dark")} />
         </IconButton>
  
     </div>
@@ -55,11 +60,30 @@ function Users() {
      <input placeholder='Search' className={'search-box'+((lightTheme)?"" : ' dark')}/>
     </div>
     <div className={'online-list-container'+((lightTheme)?"" : ' dark')}>
-    { users.map((user)=>{
+    { users.map((userData,index)=>{
         return(
-            <motion.div whileHover={{scale:1.01}} whileTap={{scale:0.99}} className={'online-list'+((lightTheme)?"" : ' dark')}>
-        <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>{user.name[0].toUpperCase()}</p>
-        <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>{user.name}</p>
+            <motion.div whileHover={{scale:1.01}} key={index} whileTap={{scale:0.99}} className={'online-list'+((lightTheme)?"" : ' dark')}
+            onClick={(e)=>{
+                console.log(userData)
+                const config={
+                    headers:{
+                        Authorization:`Bearer ${user.token}`
+                    }
+                }
+                axios.post('http://localhost:5000/chat',
+                {
+                    userId:userData._id
+                },
+                config).then((response)=>{
+                    console.log("Success")
+                    console.log(response)
+                    navigate(`/chat/${response.data._id}&${response.data.users[1].name}`)
+                }).catch((err)=>{
+                    console.log(err.message)
+                })
+            }}>
+        <p className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>{userData.name[0].toUpperCase()}</p>
+        <p className={'online-list-title'+((lightTheme)?"" : ' dark')}>{userData.name}</p>
             </motion.div>
         )
     })

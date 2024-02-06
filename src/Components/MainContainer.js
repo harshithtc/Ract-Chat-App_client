@@ -11,16 +11,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Messages from './Messages'
 
-
-
 function MainContainer() {
-  const navigate=useNavigate()
-  useEffect(()=>{
-    const user=JSON.parse(localStorage.getItem('userData'))
-  if(!user){
-    navigate('/login')
-  }
-  },[])
   const lightTheme=useSelector((state)=>state.themeKey)
   return (
     <div className={'Main'+((lightTheme)?"" : ' dark-container')}>

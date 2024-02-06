@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './App.css'
 import MainContainer from "./Components/MainContainer";
 import Login from "./Components/Login";
 import Users_Groups from "./Components/Users_Groups";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Welcome from "./Components/Welcome";
 import ChatArea from "./Components/ChatArea";
 import CreateGroups from "./Components/CreateGroups";
@@ -14,15 +14,23 @@ import SignUp from "./Components/SignUp";
 import { useSelector } from "react-redux";
 import Messages from "./Components/Messages";
 function App() {
+  const navigate=useNavigate()
+  const user=JSON.parse(localStorage.getItem('userData'))
+  useEffect(()=>{ 
+      if(!user){
+        navigate('/login')
+    }
+  },[])
+  
   const lightTheme=useSelector((state)=>state.themeKey)
   return (
-    <div className={'App'+((lightTheme)?" ":" dark")}>
+    <div className={'App'+((lightTheme)?" ":" darkk")}>
     <Routes>
         <Route path="/login"  element={<Login/>}/>
         <Route path="/signup" element={<SignUp/>}></Route>
         <Route path="/" element={<MainContainer/>}>  
         <Route path="" element={<Welcome/>}></Route>
-        <Route path="chat" element={<ChatArea/>}></Route>
+        <Route path="chat/:_id" element={<ChatArea/>}></Route>
         <Route path="users" element={<Users/>}></Route>
         <Route path="groups" element={<Groups/>}></Route>
         <Route path="create-groups" element={<CreateGroups/>}></Route>

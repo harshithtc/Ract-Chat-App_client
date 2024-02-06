@@ -101,6 +101,7 @@ function SignUp() {
               className='input-box-login'
               style={{ width: '60%' }}
               label="Enter Email Address"
+              type="email"
               variant="outlined"
               color="secondary"
               onChange={(e) => setEmail(e.target.value)} />

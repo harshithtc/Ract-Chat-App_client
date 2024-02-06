@@ -6,8 +6,12 @@ import MessageOthers from './MessageOthers';
 import MessageSelf from './MessageSelf';
 import { useSelector } from 'react-redux';
 import { AnimatePresence, motion } from "framer-motion"
+import { useParams } from 'react-router-dom';
 function ChatArea({props={name:'THAIR',timeStamp:'Online'}}) {
   const lightTheme=useSelector((state)=>state.themeKey)
+  const chatParams=useParams()
+  const [chatId,userName]=chatParams._id.split("&")
+  console.log(chatId,userName)
   return (
     <AnimatePresence>
     <motion.div 
@@ -17,9 +21,9 @@ function ChatArea({props={name:'THAIR',timeStamp:'Online'}}) {
     transition={{ease:"anticipate",duration:"0.3"}}
     className='chatArea-container'>
       <div className={'chatArea-header'+((lightTheme)?"" : ' dark')}>
-        <div className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>{props.name[0]}</div>
+        <div className={'con-icon'+((lightTheme)?"" : ' dark-icon')}>{userName[0].toUpperCase()}</div>
         <div className='header-text'>
-        <p className={'con-title'+((lightTheme)?"" : ' dark')}>{props.name}</p>
+        <p className={'con-title'+((lightTheme)?"" : ' dark')}>{userName}</p>
         <p className={'con-timeStamp'+((lightTheme)?"" : ' dark')}>{props.timeStamp}</p>
         </div>
         <IconButton >
