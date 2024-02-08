@@ -117,7 +117,7 @@ flex-direction: column;
     color: white;
     height: 32px;
     width: 32px;
-    padding:2px;
+    padding:4px;
     border-radius: 50%;
     justify-self: center;
     align-self: center;
@@ -142,9 +142,13 @@ flex-direction: column;
 }
 .con-timeStamp{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 0.75;
+    font-size: small;
     color: rgba(0,0, 0,0.54);
-    justify-self: flex-end;
+    justify-self: flex;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
 }
 .chatArea-container{
     display:flex;
@@ -230,7 +234,7 @@ flex-direction: column;
 .other-timeStamp{
     display: flex;
     justify-content: flex-end;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: rgba(0, 0, 0, 0.54);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -238,7 +242,7 @@ flex-direction: column;
     display: flex;
     justify-content: flex-end;
     color: white;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .welcome-logo{

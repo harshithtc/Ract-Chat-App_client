@@ -1,18 +1,34 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './MyStyles.css'
+import { refresh } from '../Features/RefreshSlice'
 
 function ConversationsItem({ props }) {
   const lightTheme = useSelector((state) => state.themeKey)
-  const user = JSON.parse(localStorage.getItem('userD'))
+  const dispatch=useDispatch()
+  const user = JSON.parse(localStorage.getItem('userData'))
   const navigate = useNavigate()
+  let Name
+  if(props.isGroupChat){
+    Name=props.chatName
+  }else{
+    props.users.map((data)=>{
+      if(data._id!=user._id){
+        Name=data.name;
+      }
+    })
+  }
   return (
-    <div className='conversation-container' onClick={() => { navigate(`/chat/${props._id}&${props.users[1].name}`) }}>
-      <p className={'con-icon' + ((lightTheme) ? "" : ' dark-icon')}>{props.users[1].name[0].toUpperCase()}</p>
-      <p className={'con-title' + ((lightTheme) ? "" : ' dark')}>{props.users[1].name}</p>
-      <p className={'con-lastMessage' + ((lightTheme) ? "" : ' dark')}>{props.lastMessage ? props.lastMessage : "Hi,\n how are you can i meet u"}</p>
-      <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')}>{new Date(props.time).toDateString()}</p>
+    <div className='conversation-container' onClick={() => { 
+      
+      navigate(`/chat/${props._id}&${Name}`)
+      dispatch(refresh())
+    }}>
+      <p className={'con-icon' + ((lightTheme) ? "" : ' dark-icon')} >{Name[0].toUpperCase()}</p>
+      <p className={'con-title' + ((lightTheme) ? "" : ' dark')}>{Name}</p>
+      <p className={'con-lastMessage' + ((lightTheme) ? "" : ' dark')}>{props.latestMessage? props.latestMessage.content : "No Messages yet, click to start conversation "}</p>
+      <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')} style={{alignSelf: 'flex-end'}}>{new Date(props.time).toDateString()}</p>
 
     </div>
 

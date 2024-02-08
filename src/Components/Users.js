@@ -72,12 +72,13 @@ function Users() {
                 }
                 axios.post('http://localhost:5000/chat',
                 {
-                    userId:userData._id
+                    userId:userData._id,
                 },
                 config).then((response)=>{
                     console.log("Success")
                     console.log(response)
                     navigate(`/chat/${response.data._id}&${response.data.users[1].name}`)
+                    dispatch(refresh())
                 }).catch((err)=>{
                     console.log(err.message)
                 })

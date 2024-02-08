@@ -1,12 +1,11 @@
 import React from 'react'
 
-function MessageSelf() {
-    var props1={name:'You',message:"This is a sample Message"}
+function MessageSelf({ props }) {
   return (
     <div className='self-message-container'>
       <div className='messageBox'>
-       <p className='con-lastMessage' style={{color:'whitesmoke'}}>{props1.message}</p> 
-       <p className='self-time-stamp'> 12:00am</p>
+       <p className='con-lastMessage' style={{color:'whitesmoke'}}>{props.content}</p> 
+       <p className='self-time-stamp'>{`${new  Date(props.time).getHours()}:${new  Date(props.time).getMinutes()}`}</p>  
       </div>
       
     </div>

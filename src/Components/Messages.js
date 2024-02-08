@@ -12,18 +12,21 @@ function Messages() {
   const navigate=useNavigate()
    useEffect(() => {
       const handleView = () => {
-         setMobileOrientaion(window.innerWidth < 687)
+         if(window.innerWidth >687)
+            navigate('/')
+         setMobileOrientaion(window.innerWidth <=687)
       }
       handleView()
       window.addEventListener('resize', handleView)
       return () => {
          window.removeEventListener('resize', handleView)
       }
-   }, [])
+   }, [mobileOrientation])
     
     const lightTheme=useSelector((state)=>state.themeKey)
     const user=JSON.parse(localStorage.getItem('userData'))
     const [conversations,setConversations]=useState([])
+    const refreshField=useSelector((state)=>state.refreshKey)
     
     useEffect(()=>{
       if(!user){
@@ -43,7 +46,7 @@ function Messages() {
           })
       }        
         
-    },[])
+    },[refreshField])
     
   return (
     <AnimatePresence>

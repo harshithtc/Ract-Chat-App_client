@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { Button, IconButton } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence, motion } from "framer-motion"
 
 
@@ -14,9 +14,11 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { refresh } from '../Features/RefreshSlice';
 
 function CreateGroups() {
   const lightTheme=useSelector((state)=>state.themeKey)
+  const dispatch=useDispatch()
   const [groupName,setGroupName]=useState(null);
   const user=JSON.parse(localStorage.getItem("userData"));
   const navigate=useNavigate()
@@ -42,7 +44,7 @@ function CreateGroups() {
         }
         axios.post('http://localhost:5000/chat/createGroup',{
           name:groupName,
-          users:[user._id,user._id]
+          users:[user._id]
         },
         config)
         .then((response)=>{
@@ -105,6 +107,7 @@ function CreateGroups() {
       <Button onClick={()=>{
         handleClose()
         handleCreateGroup()
+        dispatch(refresh())
         
       }} autoFocus>
         Yes
