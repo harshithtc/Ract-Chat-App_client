@@ -1,11 +1,16 @@
 import React from 'react'
 
 function MessageSelf({ props }) {
+  const formattedTime = new Date(props.time).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
   return (
     <div className='self-message-container'>
       <div className='messageBox'>
-       <p className='con-lastMessage' style={{color:'whitesmoke'}}>{props.content}</p> 
-       <p className='self-time-stamp'>{`${new  Date(props.time).getHours()}:${new  Date(props.time).getMinutes()}`}</p>  
+       <p className='con-message' style={{color:'whitesmoke'}}>{props.content}</p> 
+       <p className='self-time-stamp'>{formattedTime}</p>  
       </div>
       
     </div>

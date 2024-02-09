@@ -49,11 +49,11 @@ function CreateGroups() {
         config)
         .then((response)=>{
           console.log(response)
-          setGroupName("")
+          dispatch(refresh)
           
         })
         .catch(err => {console.log(err)})
-        
+        setGroupName("")
 
   }
 
