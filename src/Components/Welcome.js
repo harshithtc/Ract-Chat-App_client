@@ -20,7 +20,7 @@ function Welcome() {
     className={'welcome-container'+((lightTheme)?"" : ' dark')}>
      <img src={logo} alt="" className='welcome-logo' />
      <p style={{margin:'0 10px',lineHeight:"0px"}}> Hi🖐️ {user?user.name:""} </p>
-     <p >View and text directly to peaple presnt in the chat rooms</p>
+     <p style={{margin:"0 10px",justifySelf:'center'}}>View and text directly to peaple presnt in the chat rooms</p>
      
     </motion.div>
     </AnimatePresence>

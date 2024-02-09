@@ -9,27 +9,28 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { refresh } from '../Features/RefreshSlice';
+import Skeleton from "@mui/material/Skeleton";
 //socket  
 import { io } from "socket.io-client";
-const ENDPOINT="http://localhost:5000/"
+const ENDPOINT = "http://localhost:5000/"
 var socket
 function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
-  const [socketConnectionStatus,setSocketConnectionStatus]=useState(false)
+  const [socketConnectionStatus, setSocketConnectionStatus] = useState(false)
   const lightTheme = useSelector((state) => state.themeKey)
-  const dispatch=useDispatch()
-  const refreshHandle=useSelector((state)=>state.refreshKey)
+  const dispatch = useDispatch()
+  const refreshHandle = useSelector((state) => state.refreshKey)
   const [message, setMessage] = useState('')
   const [allMessages, setAllMessages] = useState([])
-  const [allMessagesCopy,setAllMessagesCopy]=useState([])
+  const [allMessagesCopy, setAllMessagesCopy] = useState([])
   const chatParams = useParams()
-  const user=JSON.parse(localStorage.getItem('userData'))
+  const user = JSON.parse(localStorage.getItem('userData'))
   const [chatId, userName] = chatParams._id.split("&")
-  const [loaded,setLoaded]=useState(false)
+  const [loading, setLoading] = useState(true)
   const chatAreaRef = useRef(null);
   console.log(chatId, userName)
-  const config={
-    headers:{
-      Authorization:`Bearer ${user.token}`
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`
     }
   }
 
@@ -42,19 +43,14 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
       }, config)
       .then((response) => {
         const data = response.data;
-        dispatch(refresh());
         socket.emit('new message', data);
+        setMessage('');
+        dispatch(refresh(true))
       })
       .catch((err) => {
         console.error(err.message);
       })
-      .finally(() => {
-        setMessage('');
-      });
   };
-
- 
-
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -65,23 +61,25 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
     });
   }, []);
 
-  useEffect(()=>{
-    socket.on("message recieved",(newMessage)=>{
-        setAllMessages((prevMessages)=>[...prevMessages,newMessage])
-        dispatch(refresh())
-      
+  useEffect(() => {
+    socket.on("message recieved", (newMessage) => {
+      if(chatId==newMessage.chat._id){
+        setAllMessages([...allMessages],newMessage)
+      }
+       dispatch(refresh(true))
+     
     })
-    return ()=>socket.off(["message recieved"])
-  },[])
-  useEffect(()=>{
-    axios.get(`http://localhost:5000/message/${chatId}`,config).then((response)=>{
+    return () => socket.off(["message recieved"])
+  }, [])
+  useEffect(() => {
+    axios.get(`http://localhost:5000/message/${chatId}`, config).then((response) => {
       setAllMessages(response.data)
-      setLoaded(true)
-      socket.emit("join chat",chatId)
-    }).catch(err=>console.error(err))
+      setLoading(false)
+      socket.emit("join chat", chatId)
+    }).catch(err => console.error(err))
 
     setAllMessagesCopy(allMessages)
-  },[refreshHandle])
+  }, [refreshHandle])
 
   useEffect(() => {
     if (chatAreaRef.current) {
@@ -89,8 +87,53 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
     }
   }, [allMessages]);
 
-  
+  const deleteConversation = () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    }
+    axios.post("http://localhost:5000/message/deleteMessages",{chatId:chatId}, config).then((response)=>{
+      console.log(response)
+      dispatch(refresh())
+    }).catch((err)=>console.log(err))
+  }
+
+    if(loading){
+      return (
+        <div
+          style={{
+            border: "20px",
+            padding: "10px",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}
+        >
+          <Skeleton
+            variant="rectangular"
+            sx={{ width: "100%", borderRadius: "10px" }}
+            height={60}
+          />
+          <Skeleton
+            variant="rectangular"
+            sx={{
+              width: "100%",
+              borderRadius: "10px",
+              flexGrow: "1",
+            }}
+          />
+          <Skeleton
+            variant="rectangular"
+            sx={{ width: "100%", borderRadius: "10px" }}
+            height={60}
+          />
+        </div>
+      );
+    }else{
   return (
+
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0, scale: 0 }}
@@ -104,19 +147,19 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
             <p className={'con-title' + ((lightTheme) ? "" : ' dark')}>{userName}</p>
             <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')}>{props.timeStamp}</p>
           </div>
-          <IconButton >
+          <IconButton onClick={deleteConversation}>
             <DeleteOutlineRoundedIcon className={'' + ((lightTheme) ? "" : ' dark')} />
           </IconButton>
         </div>
         <div ref={chatAreaRef} className={'chatArea-messages' + ((lightTheme) ? "" : ' dark')}>
 
           {
-            allMessages.reverse().map((data,index)=>{
+            allMessages.reverse().map((data, index) => {
               <p>{data.date}</p>
-              if(data.sender._id==user._id){
-                return <MessageSelf props={data}/>
+              if (data.sender._id == user._id) {
+                return <MessageSelf props={data} />
               }
-              else{
+              else {
                 return <MessageOthers props={data} />
               }
             })
@@ -125,14 +168,14 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
         </div>
         <div className={'chatArea-input' + ((lightTheme) ? "" : ' dark')}>
           <input type="text" placeholder='Type a message' onChange={(e) => setMessage(e.target.value)} value={message} className={'' + ((lightTheme) ? "" : ' dark')}
-          
-          onKeyDown={(e)=>{
-            if(e.key==="Enter"){
-              sendMessage()
 
-            }
-          }}/>
-          <IconButton onClick={()=>{
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                sendMessage()
+
+              }
+            }} />
+          <IconButton onClick={() => {
             sendMessage()
           }}>
             <SendIcon className={'' + ((lightTheme) ? "" : ' dark')} />
@@ -141,6 +184,7 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
       </motion.div>
     </AnimatePresence>
   )
+}
 }
 
 export default ChatArea

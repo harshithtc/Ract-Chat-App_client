@@ -33,6 +33,23 @@ function Groups() {
         }).catch(err => console.log(err.message))
     }, [refreshHandle])
 
+    const handleExit=(chatId)=>{
+        setLoading((prevState) => !prevState)
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        axios.put("http://localhost:5000/chat/groupExit",{chatId,userId:user._id},config).then((response)=>{
+            console.log("exit from the group success")
+            console.log(response.data)
+            setLoading((prevState) => !prevState)
+            dispatch(refresh())
+
+        })
+        .catch((err)=>console.log(err.message))
+    }
+
     return (
         <AnimatePresence>
             <motion.div
@@ -86,8 +103,8 @@ function Groups() {
                                     
                                 }}>join</LoadingButton>)
                                     :
-                                    (<LoadingButton loading={false} style={{ color: "#63d7b0", marginLeft: "auto" }} onClick={() => {
-
+                                    (<LoadingButton loading={loading} style={{ color: "#63d7b0", marginLeft: "auto" }} onClick={() => {
+                                            handleExit(group._id)
                                     }}>exit</LoadingButton>)
                                 }
 
