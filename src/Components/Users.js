@@ -15,6 +15,7 @@ function Users() {
     const refreshField=useSelector((state)=>state.refreshKey)
     const dispatch=useDispatch()
     const user=JSON.parse(localStorage.getItem('userData'))
+    const [loading,setLoading]=useState(true)
     const navigate=useNavigate()
     //console.log("User data ",user.token)
     useEffect(()=>{
@@ -29,7 +30,7 @@ function Users() {
         axios.get('http://localhost:5000/user/fethUsers',config).then((response)=>{
             console.log(response.data)
             setUsers(response.data)
-
+                
         }).catch((err)=>{
                 console.log(err)
         })

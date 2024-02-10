@@ -95,6 +95,7 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
     }
     axios.post("http://localhost:5000/message/deleteMessages",{chatId:chatId}, config).then((response)=>{
       console.log(response)
+      navigator(1)
       dispatch(refresh())
     }).catch((err)=>console.log(err))
   }
@@ -112,21 +113,24 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
           }}
         >
           <Skeleton
+            animation='wave'
             variant="rectangular"
-            sx={{ width: "100%", borderRadius: "10px" }}
+            sx={{ width: "100%", borderRadius: "20px" }}
             height={60}
           />
           <Skeleton
+            animation='wave'
             variant="rectangular"
             sx={{
               width: "100%",
-              borderRadius: "10px",
+              borderRadius: "20px",
               flexGrow: "1",
             }}
           />
           <Skeleton
+            animation='wave'
             variant="rectangular"
-            sx={{ width: "100%", borderRadius: "10px" }}
+            sx={{ width: "100%", borderRadius: "20px" }}
             height={60}
           />
         </div>

@@ -49,7 +49,7 @@ function CreateGroups() {
         config)
         .then((response)=>{
           console.log(response)
-          dispatch(refresh)
+          dispatch(refresh(true))
           
         })
         .catch(err => {console.log(err)})

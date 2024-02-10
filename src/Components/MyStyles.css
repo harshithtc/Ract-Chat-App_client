@@ -416,7 +416,9 @@ flex-direction: column;
     display:flex;
     flex-wrap:nowrap
 }
-
+.loader::-webkit-scrollbar{
+    display: none;
+}
 @media screen and (max-width :43em) {
     .sidebar-container .sd-Search{
         display:none
