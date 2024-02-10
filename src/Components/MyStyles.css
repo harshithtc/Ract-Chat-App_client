@@ -275,21 +275,22 @@ flex-direction: column;
 .createGroup-main-container{
     display: flex;
     flex: 0.7;
-    background-color: white;
+    flex-direction: column;
     margin: 10px;
-    padding:10px;
-    border-radius: 20px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+   
 }
 .createGroup-container{
     display: flex;
-    flex:1;
     background-color: white;
-    margin: 10px;
+    width:inherit;
+   
+    margin-top: 3px;
+    margin-bottom: 10px;
+    padding: 6px 10px;
     border-radius: 20px;
     align-self: center;
     justify-content: space-between;
-    padding: 10px 5px;
+    
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 .createGroup-container input{
@@ -298,6 +299,7 @@ flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.2rem;
     flex: 0;
+   
 }
 .login-container{
     width:90vw;
@@ -516,7 +518,8 @@ flex-direction: column;
         border-radius: 0;
     }
     .createGroup-container{
-        margin:0
+        margin:0;
+        border-radius: 0;
     }
     .input-box-login{
         width:80% !important;

@@ -9,6 +9,7 @@ function ConversationsItem({ props }) {
   const dispatch=useDispatch()
   const user = JSON.parse(localStorage.getItem('userData'))
   const navigate = useNavigate()
+  
   let Name
   if(props.isGroupChat){
     Name=props.chatName
