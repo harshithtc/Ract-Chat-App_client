@@ -298,7 +298,7 @@ flex-direction: column;
     outline-width: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.2rem;
-    flex: 0;
+    width: 100%;
    
 }
 .login-container{

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import './App.css'
 import MainContainer from "./Components/MainContainer";
 import Login from "./Components/Login";
-import Users_Groups from "./Components/Users_Groups";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Welcome from "./Components/Welcome";
 import ChatArea from "./Components/ChatArea";
