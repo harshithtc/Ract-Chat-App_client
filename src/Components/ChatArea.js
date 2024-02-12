@@ -108,6 +108,7 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
             padding: "10px",
             width: "100%",
             display: "flex",
+            flex:'1',
             flexDirection: "column",
             gap: "10px",
           }}
@@ -144,7 +145,7 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0 }}
         transition={{ ease: "anticipate", duration: "0.3" }}
-        className='chatArea-container'>
+        className={'chatArea-container'+((lightTheme) ? " " : " dark")}>
         <div className={'chatArea-header' + ((lightTheme) ? "" : ' dark')}>
           <div className={'con-icon' + ((lightTheme) ? "" : ' dark-icon')}>{userName[0].toUpperCase()}</div>
           <div className='header-text'>

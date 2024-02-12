@@ -21,15 +21,15 @@ function ConversationsItem({ props }) {
     })
   }
   return (
-    <div className='conversation-container' onClick={() => { 
+    <div className={'conversation-container'+((lightTheme) ? " " : " dark")} onClick={() => { 
       
       navigate(`/chat/${props._id}&${Name}`)
       dispatch(refresh())
     }}>
       <p className={'con-icon' + ((lightTheme) ? "" : ' dark-icon')} >{Name[0].toUpperCase()}</p>
       <p className={'con-title' + ((lightTheme) ? "" : ' dark')}>{Name}</p>
-      <p className={'con-lastMessage' + ((lightTheme) ? "" : ' dark')}>{props.latestMessage? props.latestMessage.content : "No Messages yet, click to start conversation "}</p>
-      <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')} style={{alignSelf: 'flex-end'}}>{new Date(props.time).toDateString()}</p>
+      <p className={'con-lastMessage' + ((lightTheme) ? "" : ' dark')} >{props.latestMessage? props.latestMessage.content : "No Messages yet, click to start conversation "}</p>
+      <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')} >{new Date(props.time).toDateString()}</p>
 
     </div>
 

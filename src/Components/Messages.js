@@ -77,7 +77,7 @@ function Messages() {
     <input placeholder='Search' className={"search-box " + ((lightTheme) ? " " : " dark")} />
  </div>}
    {loading?(
-      <div style={style} className='loader'>
+      <div style={style} className={'loader ' +((lightTheme) ? " " : " dark")}>
       <div
       style={{
         display: "flex",
@@ -409,7 +409,7 @@ function Messages() {
     exit={{opacity:0,scale:0}}
     transition={{ease:"anticipate",duration:"0.3"}}
     style={{boxSizing:'border-box',height:'max',width:'inherit'}}
-    className='messages-container'>
+    className={'messages-container'+((lightTheme) ? " " : " dark")}>
     {       conversations.map((conversation,index)=>{
           return(<ConversationsItem props={conversation} key={index}  />)
        })
