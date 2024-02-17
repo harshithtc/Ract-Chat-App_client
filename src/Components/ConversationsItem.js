@@ -29,7 +29,7 @@ function ConversationsItem({ props }) {
       <p className={'con-icon' + ((lightTheme) ? "" : ' dark-icon')} >{Name[0].toUpperCase()}</p>
       <p className={'con-title' + ((lightTheme) ? "" : ' dark')}>{Name}</p>
       <p className={'con-lastMessage' + ((lightTheme) ? "" : ' dark')} >{props.latestMessage? props.latestMessage.content : "No Messages yet, click to start conversation "}</p>
-      <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')} >{new Date(props.time).toDateString()}</p>
+      <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')} >{(new Date(props.time).getDate()===new Date().getDate() && new Date(props.time).getMonth()===new Date().getMonth() && new Date(props.time).getFullYear()===new Date().getFullYear())?"Today":new Date(props.time).toDateString()}</p>
 
     </div>
 

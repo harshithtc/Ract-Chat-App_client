@@ -35,16 +35,19 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
   }
 
   const sendMessage = () => {
-    if (!message.trim()) return; // Do not send empty messages
+    if (!message.trim()) return; 
+    const messag=message
+    setMessage('');
+    // Do not send empty messages
     axios
       .post('http://localhost:5000/message', {
-        content: message,
+        content: messag,
         chatId: chatId,
       }, config)
       .then((response) => {
         const data = response.data;
+        setAllMessages([...allMessages,data])
         socket.emit('new message', data);
-        setMessage('');
         dispatch(refresh(true))
       })
       .catch((err) => {
@@ -95,8 +98,7 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
     }
     axios.post("http://localhost:5000/message/deleteMessages",{chatId:chatId}, config).then((response)=>{
       console.log(response)
-      navigator(1)
-      dispatch(refresh())
+      dispatch(refresh(!refreshHandle))
     }).catch((err)=>console.log(err))
   }
 
@@ -116,7 +118,7 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
           <Skeleton
             animation='wave'
             variant="rectangular"
-            sx={{ width: "100%", borderRadius: "20px" }}
+            sx={{ width: "100%", borderRadius: "20px"}}
             height={60}
           />
           <Skeleton
@@ -126,12 +128,13 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
               width: "100%",
               borderRadius: "20px",
               flexGrow: "1",
+              
             }}
           />
           <Skeleton
             animation='wave'
             variant="rectangular"
-            sx={{ width: "100%", borderRadius: "20px" }}
+            sx={{ width: "100%", borderRadius: "20px"}}
             height={60}
           />
         </div>
@@ -145,7 +148,7 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0 }}
         transition={{ ease: "anticipate", duration: "0.3" }}
-        className={'chatArea-container'+((lightTheme) ? " " : " dark")}>
+        className={'chatArea-container'+((lightTheme) ? " " : " dark-container")}>
         <div className={'chatArea-header' + ((lightTheme) ? "" : ' dark')}>
           <div className={'con-icon' + ((lightTheme) ? "" : ' dark-icon')}>{userName[0].toUpperCase()}</div>
           <div className='header-text'>

@@ -31,6 +31,8 @@ function CreateGroups() {
   const refreshField = useSelector((state) => state.refreshKey)
   const [addUsers,setAddUsers]=useState([user._id])
   const [loading,setLoading]=useState(true)
+  const [searchText, setSeachText] = useState("")
+    const [usersCopy,setUsersCopy]=useState([])
   useEffect(() => {
     if (!user) {
       navigate('/login')
@@ -43,6 +45,7 @@ function CreateGroups() {
     axios.get('http://localhost:5000/user/fethUsers', config).then((response) => {
       console.log(response.data)
       setUsers(response.data)
+      setUsersCopy(response.data)
       setLoading(false)
     }).catch((err) => {
       console.log(err)
@@ -88,7 +91,7 @@ function CreateGroups() {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0 }}
         transition={{ ease: "anticipate", duration: "0.3" }}
-        className={'createGroup-main-container' + ((lightTheme) ? "" : ' dark')}>
+        className={'createGroup-main-container' + ((lightTheme) ? "" : ' dark-container')}>
         <div>
         <div className={'createGroup-container' + ((lightTheme) ? "" : ' dark')}>
           <input type="text"  placeholder='Enter Group Name'
@@ -119,7 +122,25 @@ function CreateGroups() {
         <IconButton>
          <SearchIcon className={''+((lightTheme)?"" : ' dark')}/>
          </IconButton>
-         <input placeholder='Search' className={'search-box'+((lightTheme)?"" : ' dark')}/>
+         <input placeholder='Search' value={searchText} className={'search-box'+((lightTheme)?"" : ' dark')} onChange={(e)=>{ 
+          setSeachText(e.target.value) 
+          if(e.target.value.trim()==="")
+              setUsers(usersCopy)
+          else{
+              setUsers(usersCopy.filter((user)=>user.name.trim().toLowerCase( ).includes(searchText.toLowerCase())))
+          }
+          
+          
+          }}
+          
+          
+          onKeyDown={(e)=>{
+            if(e.key==='Backspace' || e.key==="Delete"){
+                setSeachText(e.target.value)
+                setUsers(usersCopy)
+            }
+        }}
+        />
         </div>
         <div className={'online-list-container' + ((lightTheme) ? "" : ' dark')}>
         {

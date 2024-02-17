@@ -17,7 +17,7 @@ function Groups() {
     const [groupsCopy, setGroupsCopy] = useState([])
     const [searchText,setSeachText]=useState("")
     const user = JSON.parse(localStorage.getItem('userData'))
-    const [loading, setLoading] = useState(false)
+    const [loadingIndex, setLoadingIndex] = useState(null)
     const [loader,setLoader]=useState(true);
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -38,8 +38,8 @@ function Groups() {
         }).catch(err => console.log(err.message))
     }, [refreshHandle])
 
-    const handleExit = (chatId) => {
-        setLoading((prevState) => !prevState)
+    const handleExit = (chatId,index) => {
+        setLoadingIndex(index)
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
@@ -48,7 +48,7 @@ function Groups() {
         axios.put("http://localhost:5000/chat/groupExit", { chatId, userId: user._id }, config).then((response) => {
             console.log("exit from the group success")
             console.log(response.data)
-            setLoading((prevState) => !prevState)
+            setLoadingIndex(null)
             dispatch(refresh((prevState) => !prevState))
 
         })
@@ -178,8 +178,8 @@ function Groups() {
                                                 whileHover={{ scale: 1.01 }} className={'online-list' + ((lightTheme) ? "" : ' dark')}>
                                                 <p className={'con-icon' + ((lightTheme) ? "" : ' dark-icon')}>{group.chatName[0].toUpperCase()}</p>
                                                 <p className={'online-list-title' + ((lightTheme) ? "" : ' dark')}>{group.chatName}</p>
-                                                {!group.users.includes(user._id) ? (<LoadingButton loading={loading} style={{ color: "#63d7b0", marginLeft: "auto" }} onClick={() => {
-                                                    setLoading((prevState) => !prevState)
+                                                {!group.users.includes(user._id) ? (<LoadingButton loading={loadingIndex===index} style={{ color: "#63d7b0", marginLeft: "auto" }} onClick={(e) => {
+                                                    setLoadingIndex(index)
                                                     const config = {
                                                         headers: {
                                                             Authorization: `Bearer ${user.token}`
@@ -190,7 +190,7 @@ function Groups() {
                                                         userId: user._id
                                                     }, config).then((response) => {
                                                         console.log(response)
-                                                        setLoading((prevState) => !prevState)
+                                                        setLoadingIndex(null);
                                                         dispatch(refresh())
                                                     }).catch((err) => {
                                                         console.log(err.message)
@@ -199,8 +199,10 @@ function Groups() {
 
                                                 }}>join</LoadingButton>)
                                                     :
-                                                    (<LoadingButton loading={loading} style={{ color: "#63d7b0", marginLeft: "auto" }} onClick={() => {
-                                                        handleExit(group._id)
+                                                    (<LoadingButton loading={loadingIndex===index} style={{ color: "#63d7b0", marginLeft: "auto" }} onClick={(e) => {
+                                                        
+                                                        handleExit(group._id,index)
+                                                
                                                     }}>exit</LoadingButton>)
                                                 }
 

@@ -151,8 +151,8 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 0.75;
     color: rgba(0, 0, 0, 0.54);
-    text-wrap: nowrap;
     overflow: hidden;
+    text-wrap: nowrap;
     text-overflow: ellipsis;
 
 }
@@ -161,11 +161,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: small;
     color: rgba(0, 0, 0, 0.54);
-    justify-self: flex;
+    justify-self: flex-end;
     text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
 }
 
 .chatArea-container {

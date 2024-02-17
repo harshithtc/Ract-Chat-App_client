@@ -63,7 +63,7 @@ function Users() {
                     <IconButton>
                         <SearchIcon className={'' + ((lightTheme) ? "" : ' dark')} />
                     </IconButton>
-                    <input placeholder='Search' value={searchText} className={'search-box' + ((lightTheme) ? "" : ' dark')}  onChange={async(e)=>{ 
+                    <input placeholder='Search' value={searchText} className={'search-box' + ((lightTheme) ? "" : ' dark')}  onChange={(e)=>{ 
                                 setSeachText(e.target.value) 
                                 if(e.target.value.trim()==="")
                                     setUsers(usersCopy)
@@ -77,7 +77,9 @@ function Users() {
                             setSeachText(e.target.value)
                             setUsers(usersCopy)
                         }
-                    }}/>
+                    }}
+                    
+                    />
                 </div>
                 <div className={'online-list-container' + ((lightTheme) ? "" : ' dark')}>
                     {
@@ -167,7 +169,7 @@ function Users() {
                                                         config).then((response) => {
                                                             console.log("Success")
                                                             console.log(response)
-                                                            navigate(`/chat/${response.data._id}&${response.data.users[1].name}`)
+                                                            navigate(`/chat/${response.data._id}&${((response.data.users[0]._id!==user._id)?response.data.users[0].name:response.data.users[1].name)}`)
                                                             dispatch(refresh())
                                                         }).catch((err) => {
                                                             console.log(err.message)

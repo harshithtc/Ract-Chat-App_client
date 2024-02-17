@@ -57,7 +57,8 @@ function Messages() {
       }
           axios.get('http://localhost:5000/chat/',config).then((response)=>{
              let data=[...response.data]
-             data.sort((a,b)=>(new Date(b.date)- new Date(a.date)))
+             console.log(data)
+             data.sort((a,b)=>(new Date(b.time)- new Date(a.time)))
              setConversations(data)
              setLoading(false)   
           }).catch((err)=>{
