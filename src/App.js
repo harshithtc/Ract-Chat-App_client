@@ -12,32 +12,35 @@ import ConversationsItem from "./Components/ConversationsItem";
 import SignUp from "./Components/SignUp";
 import { useSelector } from "react-redux";
 import Messages from "./Components/Messages";
+import VideoCall from "./Components/VideoCall";
+import VoiceCall from "./Components/VoiceCall";
 function App() {
-  const navigate=useNavigate()
-  const user=JSON.parse(localStorage.getItem('userData'))
-  useEffect(()=>{ 
-      if(!user){
-        navigate('/login')
+  const navigate = useNavigate()
+  const user = JSON.parse(localStorage.getItem('userData'))
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
     }
-  },[])
-  
-  const lightTheme=useSelector((state)=>state.themeKey)
+  }, [])
+
+  const lightTheme = useSelector((state) => state.themeKey)
   return (
-    <div className={'App'+((lightTheme)?" ":" darkk")}>
-    <Routes>
-        <Route path="/login"  element={<Login/>}/>
-        <Route path="/signup" element={<SignUp/>}></Route>
-        <Route path="/" element={<MainContainer/>}>  
-        <Route path="" element={<Welcome/>}></Route>
-        <Route path="chat/:_id" element={<ChatArea/>}></Route>
-        <Route path="users" element={<Users/>}></Route>
-        <Route path="groups" element={<Groups/>}></Route>
-        <Route path="create-groups" element={<CreateGroups/>}></Route>
-        <Route path="messages" element={<Messages/>}></Route>
-       
-      </Route>
-    </Routes>
-   
+    <div className={'App' + ((lightTheme) ? " " : " darkk")}>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/" element={<MainContainer />}>
+          <Route path="" element={<Welcome />}></Route>
+          <Route path="chat/:_id" element={<ChatArea />}></Route>
+          <Route path="users" element={<Users />}></Route>
+          <Route path="groups" element={<Groups />}></Route>
+          <Route path="create-groups" element={<CreateGroups />}></Route>
+          <Route path="messages" element={<Messages />}></Route>
+        </Route>
+        <Route path="/video-call/:chatId" element={<VideoCall />}></Route>
+        <Route path="/voice-call/:chatId" element={<VoiceCall />}></Route>
+      </Routes>
+
     </div>
   )
 }

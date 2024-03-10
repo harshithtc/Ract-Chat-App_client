@@ -29,7 +29,15 @@ function ConversationsItem({ props }) {
       <p className={'con-icon' + ((lightTheme) ? "" : ' dark-icon')} >{Name[0].toUpperCase()}</p>
       <p className={'con-title' + ((lightTheme) ? "" : ' dark')}>{Name}</p>
       <p className={'con-lastMessage' + ((lightTheme) ? "" : ' dark')} >{props.latestMessage? props.latestMessage.content : "No Messages yet, click to start conversation "}</p>
-      <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')} >{(new Date(props.time).getDate()===new Date().getDate() && new Date(props.time).getMonth()===new Date().getMonth() && new Date(props.time).getFullYear()===new Date().getFullYear())?"Today":new Date(props.time).toDateString()}</p>
+      <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')} >{(new Date(props.time).getDate()===new Date().getDate() && new Date(props.time).getMonth()===new Date().getMonth() && new Date(props.time).getFullYear()===new Date().getFullYear())?`Today ${new Date(props.time).toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      })}`:new Date(props.time).toLocaleDateString("en-IN",{
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      }).replace(/\s+/g, '-')}</p>
 
     </div>
 

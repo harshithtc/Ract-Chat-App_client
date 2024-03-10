@@ -37,7 +37,7 @@
 .sidebar-container {
     display: flex;
     flex-direction: column;
-    flex: 0;
+    flex: 0.4;
     /*or flex-grow :0.3*/
 }
 
@@ -54,7 +54,7 @@
     padding: 5px 5px;
     margin: 10px;
     display: flex;
-    gap: 25px;
+    gap: auto;
     justify-content: space-between;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 
@@ -470,7 +470,16 @@
 .loader::-webkit-scrollbar {
     display: none;
 }
-
+.call-container{
+    display: flex;
+    width: 90vw;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-bottom: 5px solid  #63d7b0 ;
+}
 @media screen and (max-width :43em) {
     .sidebar-container .sd-Search {
         display: none

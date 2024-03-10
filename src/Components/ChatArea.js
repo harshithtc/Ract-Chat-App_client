@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
+import VideoCallRoundedIcon from '@mui/icons-material/VideoCallRounded';
+import AddIcCallRoundedIcon from '@mui/icons-material/AddIcCallRounded';
 import MessageOthers from './MessageOthers';
 import MessageSelf from './MessageSelf';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence, motion } from "framer-motion"
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { refresh } from '../Features/RefreshSlice';
 import Skeleton from "@mui/material/Skeleton";
@@ -27,6 +29,7 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
   const [chatId, userName] = chatParams._id.split("&")
   const [loading, setLoading] = useState(true)
   const chatAreaRef = useRef(null);
+  const navigate=useNavigate()
   console.log(chatId, userName)
   const config = {
     headers: {
@@ -154,18 +157,30 @@ function ChatArea({ props = { name: 'THAIR', timeStamp: 'Online' } }) {
           <div className='header-text'>
             <p className={'con-title' + ((lightTheme) ? "" : ' dark')}>{userName}</p>
             <p className={'con-timeStamp' + ((lightTheme) ? "" : ' dark')}>{props.timeStamp}</p>
-          </div>
-          <IconButton onClick={deleteConversation}>
-            <DeleteOutlineRoundedIcon className={'' + ((lightTheme) ? "" : ' dark')} />
+          </div> 
+          <div>
+          <IconButton onClick={(e)=>{
+            navigate(`/voice-call/${chatId}`)
+        }}>
+          <AddIcCallRoundedIcon className={'' + ((lightTheme) ? "" : ' dark')}/>
           </IconButton>
+          <IconButton onClick={(e)=>{
+              navigate(`/video-call/${chatId}`)
+          }}>
+          <VideoCallRoundedIcon className={'' + ((lightTheme) ? "" : ' dark')} />
+          </IconButton>
+          <IconButton onClick={deleteConversation}>
+            <DeleteRoundedIcon className={'' + ((lightTheme) ? "" : ' dark')} />
+          </IconButton>
+          </div>
         </div>
         <div ref={chatAreaRef} className={'chatArea-messages' + ((lightTheme) ? "" : ' dark')}>
 
           {
             allMessages.reverse().map((data, index) => {
-              <p>{data.date}</p>
               if (data.sender._id == user._id) {
                 return <MessageSelf props={data} />
+                  
               }
               else {
                 return <MessageOthers props={data} />
